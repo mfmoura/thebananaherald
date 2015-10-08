@@ -1,0 +1,3 @@
+Nesta pasta, ficam os arquivos de classe de javascript e jQuery do sistema.
+
+Esta pasta deverá ser protegida do acesso dos usuários, podendo ser editada apenas pelo próprio servidor, porém lida e executada por outros usuários.

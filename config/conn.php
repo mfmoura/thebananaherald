@@ -1,5 +1,15 @@
 <?php 
 
+	#################################################################################################
+	#
+	# Configuração de conexão
+	#
+	# Neste arquivo fica contido os parâmetros para a conexão com o banco.
+	# 
+	# Necessita atualização, pois está ainda marcado com os parâmetros do servidor gratuito.
+	#
+	#################################################################################################
+
 	$host = "localhost";
 	$user = "u367303683_root";
 	$passw = "batatafrita32";

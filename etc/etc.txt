@@ -1,0 +1,1 @@
+Nessa pasta, ficam os arquivos diversos; Documentação, script do banco de teste, logs (se forem gerados mais para frente) etc.

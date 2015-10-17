@@ -1,0 +1,11 @@
+Excessões do sistema:
+
+Erros de usuário:
+1 - Valores incorretos fornecidos na chamada da operação do usuário
+2 - Este usuário está banido
+3 - Este usuário está inativo
+4 - Este usuário não existe
+5 - Erro na chamada do banco de dados
+6 - Este usuário não é um moderador
+7 - Este moderador está inativo
+8 - Erro ao inserir novo usuário

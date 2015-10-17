@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"json",
+				"json"
+			],
+			[
+				"cidade",
+				"cidade"
+			],
+			[
+				"exp",
+				"explode"
+			],
+			[
+				"param",
+				"param1"
+			],
+			[
+				"ut",
+				"utf8_encode"
+			],
+			[
+				"utf",
+				"utf8_encode"
+			],
+			[
+				"pais",
+				"paisNome"
+			],
+			[
+				"estad",
+				"estadoNome"
+			],
+			[
+				"cidae",
+				"cidadeNome"
+			],
+			[
+				"sex",
+				"sexoNome"
+			],
+			[
+				"isn",
+				"is_numeric"
+			],
+			[
+				"ban",
+				"banimento"
+			],
+			[
+				"numerode",
+				"numeroDeComentarios"
+			],
+			[
+				"mysqli_",
+				"mysqli_execute"
+			],
+			[
 				"valor",
 				"valorRequerido"
 			],
@@ -95,6 +151,55 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "config/conn.php",
+			"settings":
+			{
+				"buffer_size": 793,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "etc/Excessões do sistema",
+			"settings":
+			{
+				"buffer_size": 334,
+				"line_ending": "Windows",
+				"name": "Erros do sistema:"
+			}
+		},
+		{
+			"file": "obj/moderador_obj.php",
+			"settings":
+			{
+				"buffer_size": 513,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "obj/administrador_obj.php",
+			"settings":
+			{
+				"buffer_size": 485,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "obj/registranovousuario_obj.php",
+			"settings":
+			{
+				"buffer_size": 727,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "class/usuario_class.php",
+			"settings":
+			{
+				"buffer_size": 6947,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -191,7 +296,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
@@ -205,6 +310,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"",
+			"false",
+			"exception",
+			"erro",
+			"\n			",
 			"['valor']",
 			"vtmbasica_geracao",
 			"fichasvtmbasicas_geracao_field",
@@ -234,8 +344,168 @@
 	"groups":
 	[
 		{
+			"selected": 5,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "config/conn.php",
+					"settings":
+					{
+						"buffer_size": 793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								438,
+								438
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "etc/Excessões do sistema",
+					"settings":
+					{
+						"buffer_size": 334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								334,
+								334
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Erros do sistema:",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "obj/moderador_obj.php",
+					"settings":
+					{
+						"buffer_size": 513,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								47
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "obj/administrador_obj.php",
+					"settings":
+					{
+						"buffer_size": 485,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								8
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "obj/registranovousuario_obj.php",
+					"settings":
+					{
+						"buffer_size": 727,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								56,
+								56
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "class/usuario_class.php",
+					"settings":
+					{
+						"buffer_size": 6947,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2894,
+								2866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

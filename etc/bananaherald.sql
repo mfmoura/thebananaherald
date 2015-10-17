@@ -90,7 +90,7 @@ CREATE TABLE `usuarios` (
   CONSTRAINT `fk_usuario_estado` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_pais` FOREIGN KEY (`pais`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_sexo` FOREIGN KEY (`sexo`) REFERENCES `sexo` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `assuntos` table : 
@@ -206,7 +206,7 @@ CREATE TABLE `log_acessos_usuario` (
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
   `login` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(32) NOT NULL,
   `ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login_UNIQUE` (`login`),
@@ -6224,7 +6224,47 @@ COMMIT;
 #
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `nascimento`, `sexo`, `cidade`, `estado`, `pais`, `ban`, `ativo`) VALUES 
-  (1,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,5270,26,33,NULL,1);
+  (1,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,5270,26,33,NULL,1),
+  (2,'Jonácio','jona@cio.com','1987-10-10',1,5270,26,33,NULL,1),
+  (3,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL,1),
+  (4,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL,1);
+COMMIT;
+
+#
+# Data for the `sessoes` table  (LIMIT 0,500)
+#
+
+INSERT INTO `sessoes` (`id`, `nome`, `admin_criador`, `ativo`) VALUES 
+  (1,'Sessão teste 1',1,1),
+  (2,'Sessão teste 2',1,1),
+  (3,'Sessão teste 3',1,1);
+COMMIT;
+
+#
+# Data for the `login` table  (LIMIT 0,500)
+#
+
+INSERT INTO `login` (`id`, `login`, `senha`, `ativo`) VALUES 
+  (2,'jonacio','fca871afbde9295f8bbeadb0f611f0d6',1),
+  (4,'jonacio2','fca871afbde9295f8bbeadb0f611f0d6',1);
+COMMIT;
+
+#
+# Data for the `login_moderador` table  (LIMIT 0,500)
+#
+
+INSERT INTO `login_moderador` (`id`, `login`, `senha`, `ativo`) VALUES 
+  (1,'mmoura','142qwrsaf',1);
+COMMIT;
+
+#
+# Data for the `moderador_sessao` table  (LIMIT 0,500)
+#
+
+INSERT INTO `moderador_sessao` (`moderador`, `sessao`) VALUES 
+  (1,1),
+  (1,2),
+  (1,3);
 COMMIT;
 
 

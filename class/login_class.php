@@ -4,7 +4,7 @@
 	setlocale(LC_ALL, "pt_BR");
 
 	/**
-	* Loga o usuário e devolve um cookie
+	* Consulta as informações de login de um usuário
 	*/
 	class login
 	{
@@ -23,25 +23,25 @@
 		function loginUsuario($login, $senha){
 			include ("../config/conn.php");
 
-			$stmt = $conn->prepare("SELECT id, ativo FROM login_geral WHERE login = ? AND senha = ?") or die;
+			$stmt = $conn->prepare("SELECT `id`, `ativo`  FROM login_geral WHERE `login` = ? AND `senha` = ?") or die;
 			$stmt->bind_param("ss", $login, $senha);
 			
 			if ($stmt->execute()){
 
-				$stmt->bind_result($id, $ativo);
+				$stmt->bind_result($this->id, $this->ativo);
 				$stmt->fetch();
-
-				$this->$id = $id;
-				$this->ativo = $ativo;
-
 			}
 			else {
 				throw new Exception("Erro na chamada do banco de dados", 5);
 				
 			}
 
-			if ($this->ativo == 0) {
-				throw new Exception("Este moderador está inativo", 7);
+			if ($this->ativo === 0) {
+				throw new Exception("Este usuário está inativo", 3);
+			}
+			else{
+				throw new Exception("Não foi possível entrar no sistema: Verifique seu usuário e sua senha e tenta novamente", 9);
+				
 			}
 		}
 	}

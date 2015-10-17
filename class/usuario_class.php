@@ -75,7 +75,8 @@
 			//Inicia uma conexão com o banco
 			include("../config/conn.php");
 
-        	$query = "CALL registranovousuario(?,?,?,?,?,?,?,?,?)";
+        	$query = "CALL registranovousuario(?,?,?,?,?,?,?,?,?, @out_value);";
+
 
 			if ($stmt = $conn->prepare($query)){
 				$stmt->bind_param("sssiiiiss", $param1, $param2, $param3, $param4, $param5, $param6, $param7, $param8, $param9);
@@ -90,19 +91,21 @@
 				$param8 = $this->usuario;
 				$param9 = $this->senha;
 
-				$stmt->fetch();
-
-				$stmt->bind_result($id);
-
 			}
 			else {
 				throw new Exception("Erro na chamada do banco de dados", 5);
+				die('Impossível preparar query: ' . $conn->error);
 			}
 
-			if ($stmt->fetch()){
+			if ($stmt->execute()){
+				$stmt2 = $conn->prepare("SELECT @out_value") or die('Impossível preparar query: ' . $conn->error);
+				$stmt2->execute();
+				$stmt2->bind_result($id);
+				$stmt2->fetch();
 				$this->id = $id;
 			}
 			else {
+				echo $stmt->error . PHP_EOL;
 				throw new Exception("Erro ao inserir novo usuário", 8);	
 			}
 

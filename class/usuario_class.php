@@ -159,12 +159,12 @@
 					$this->cidadeNome,
 					$this->estadoNome,
 					$this->paisNome,
-					$this->banimento,
+					$banimento,
 					$this->numeroDeTopicos,
 					$this->numeroDeComentarios,
 					$this->pontosPositivos,
 					$this->pontosNegativos,
-					$this->banimento,
+					$this->ultimoLogin,
 					$this->ativo);
 			}
 			else {
@@ -172,11 +172,19 @@
 			}
 
 			if ($stmt->fetch()){
-				if ((($this->banimento > date("Y-m-d H:i:s") OR  is_null($this->banimento))) AND ($this->ativo == 1)){
+
+				if (!is_null($banimento)){
+					$this->banimento = new datetime($banimento);
+				}
+				else{
+					$this->banimento = new datetime("0000-00-00 00:00:00");
+				}
+
+				if (( ($this->banimento->getTimestamp() <= time()) AND ($this->ativo == 1)) OR ((is_null($this->banimento) AND ($this->ativo == 1)) )){
 					return TRUE;
 				}
-				else if($this->banimento < date("Y-m-d H:i:s")){
-					throw new Exception("Este usuário está banido até " . $this->banimento, 2);
+				else if(( $this->banimento->getTimestamp() > time()) AND ($this->ativo == 1) ){
+					throw new Exception("Este usuário está banido até " . $this->banimento->format("d/m/Y H:i:s"), 2);
 				}
 				else if ($this->ativo == 0){
 					throw new Exception("Este usuário está inativo", 3);

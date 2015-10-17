@@ -5,9 +5,9 @@
 	try {
     	$usuario = new usuario($_GET["id"]);
      	$info = array("id" => $usuario->id, "nome" => $usuario->nome, "email" => $usuario->email, "nascimento" => $usuario->nascimento, "sexo" =>$usuario->sexoNome, "cidade" => $usuario->cidadeNome, "país" => $usuario->paisNome);
-	 	$json = json_encode($info);
+	 	$json_return = json_encode($info);
 
- 	print_r($json);
+ 	print_r($json_return);
 
 	}
 	catch (Exception $e) {

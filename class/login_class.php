@@ -39,7 +39,7 @@
 			if ($this->ativo === 0) {
 				throw new Exception("Este usuário está inativo", 3);
 			}
-			else{
+			else if (is_null($this->id)){
 				throw new Exception("Não foi possível entrar no sistema: Verifique seu usuário e sua senha e tenta novamente", 9);
 				
 			}

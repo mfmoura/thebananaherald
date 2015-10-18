@@ -4,10 +4,11 @@
 
 	try {
     	$usuario = new usuario($_GET["id"]);
-     	$info = array("id" => $usuario->id, "nome" => $usuario->nome, "email" => $usuario->email, "nascimento" => $usuario->nascimento, "sexo" =>$usuario->sexoNome, "cidade" => $usuario->cidadeNome, "país" => $usuario->paisNome);
-	 	$json_return = json_encode($info);
+     	$info = array("id" => $usuario->id, "nome" => $usuario->nome, "email" => $usuario->email, "nascimento" => $usuario->nascimento, "sexo" =>$usuario->sexoNome, "cidade" => $usuario->cidadeNome, "pais" => $usuario->paisNome);
+	 	print_r($info);
+	 	$json_return = json_encode($info, JSON_UNESCAPED_UNICODE);
 
- 	print_r($json_return);
+ 		echo $json_return;
 
 	}
 	catch (Exception $e) {

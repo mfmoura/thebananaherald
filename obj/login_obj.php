@@ -9,7 +9,7 @@
         $login = new login($login, $senha);
         
         $json = array("id" => $login->id, "login" => $login->login, "ativo" => $login->ativo);
-        echo json_encode($json);
+        echo json_encode($json, JSON_UNESCAPED_UNICODE);
         
     } catch (Exception $e) {
        echo 'Erro nº ', $e->getCode(), " - ", $e->getMessage(), "\n";

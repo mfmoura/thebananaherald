@@ -139,7 +139,7 @@
 					ultimoLogin,
 					ativo 
 				FROM
-					viewUsuario 
+					viewusuario 
 				WHERE
 					id = ?";
 

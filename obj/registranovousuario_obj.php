@@ -8,7 +8,7 @@
 
     	$usuario = new usuario($json);
     	$info = array("id" => $usuario->id, "nome" => $usuario->nome, "email" => $usuario->email, "nascimento" => $usuario->nascimento, "sexo" =>$usuario->sexoNome, "cidade" => $usuario->cidadeNome, "país" => $usuario->paisNome);
-	 	$json2 = json_encode($info);
+	 	$json2 = json_encode($info, JSON_UNESCAPED_UNICODE);
 		print_r($json2);
 
 	}

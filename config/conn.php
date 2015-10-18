@@ -11,20 +11,22 @@
 	#################################################################################################
 
 	setlocale(LC_ALL, 'pt_BR');
+	include("../config/config.php");
 
-	$host = "localhost";
-	$user = "root";
-	$passw = "";
-	$db = "bananaherald";
+	$host = $endereco_banco;
+	$user = $usuario_banco;
+	$passw = $senha_banco;
+	$db = $nome_banco;
+	$port = $porta_banco;
 
-	$conn = new mysqli($host, $user, $passw, $db);
+	$conn = new mysqli($host, $user, $passw, $db, $porta_banco);
 
 	if ($conn->connect_error) {
-	    die('Connect Error (' . $conn->connect_errno . ') '. $conn->connect_error);
+	    die('Erro de conexão: (' . $conn->connect_errno . ') '. $conn->connect_error);
 	}
 
 	if (!$conn->set_charset("utf8")) {
-  	  die("Error loading character set utf8: %s\n" . $mysqli->error);
+  	  die("Erro ao tentar utilizar o charset utf8: %s\n" . $mysqli->error);
 	} 
 
  ?>

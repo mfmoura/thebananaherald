@@ -1,0 +1,20 @@
+#############
+## Backups do StarUML e do MySQL Workbench
+#############
+
+# Star UML
+.~ml
+
+# MySQL Workbench
+.bak
+
+#############
+## Windows detritus
+#############
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini

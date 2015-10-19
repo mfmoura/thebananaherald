@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"mensage",
+				"mensagensPorPagina"
+			],
+			[
+				"ponto",
+				"pontosNegativos"
+			],
+			[
+				"pon",
+				"pontosPositivos"
+			],
+			[
+				"tit",
+				"titulo"
+			],
+			[
+				"tr",
+				"try	Wrap in try { … } catch (…) { … }"
+			],
+			[
+				"login",
+				"loginUsuario"
+			],
+			[
 				"json",
 				"json"
 			],
@@ -155,7 +179,15 @@
 			"file": "config/conn.php",
 			"settings":
 			{
-				"buffer_size": 793,
+				"buffer_size": 891,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "class/topico_class.php",
+			"settings":
+			{
+				"buffer_size": 2028,
 				"line_ending": "Windows"
 			}
 		},
@@ -163,40 +195,7 @@
 			"file": "etc/Excessões do sistema",
 			"settings":
 			{
-				"buffer_size": 334,
-				"line_ending": "Windows",
-				"name": "Erros do sistema:"
-			}
-		},
-		{
-			"file": "obj/moderador_obj.php",
-			"settings":
-			{
-				"buffer_size": 513,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "obj/administrador_obj.php",
-			"settings":
-			{
-				"buffer_size": 485,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "obj/registranovousuario_obj.php",
-			"settings":
-			{
-				"buffer_size": 727,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "class/usuario_class.php",
-			"settings":
-			{
-				"buffer_size": 6947,
+				"buffer_size": 465,
 				"line_ending": "Windows"
 			}
 		}
@@ -237,7 +236,16 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/thebananaherald/obj/usuario_obj.php",
 		"/C/xampp/htdocs/thebananaherald/class/usuario_class.php",
+		"/C/xampp/htdocs/thebananaherald/config/config.php",
+		"/C/xampp/htdocs/thebananaherald/config/conn.php",
+		"/C/xampp/htdocs/thebananaherald/obj/registranovousuario_obj.php",
+		"/C/xampp/htdocs/thebananaherald/obj/moderador_obj.php",
+		"/C/xampp/htdocs/thebananaherald/obj/login_obj.php",
+		"/C/xampp/htdocs/thebananaherald/obj/administrador_obj.php",
+		"/C/xampp/htdocs/thebananaherald/etc/Excessões do sistema",
+		"/C/xampp/htdocs/thebananaherald/class/login_class.php",
 		"/C/xampp/htdocs/teste/classes/calculate.php",
 		"/C/xampp/htdocs/teste/calcular.php",
 		"/C/xampp/htdocs/guestbook/config/iajsdn.php",
@@ -257,7 +265,6 @@
 		"/C/xampp/htdocs/gerador/index.php",
 		"/C/xampp/htdocs/teste.php",
 		"/C/xampp/htdocs/gerafunk.php",
-		"/C/xampp/htdocs/thebananaherald/config/conn.php",
 		"/C/xampp/htdocs/thebananaherald/index.php",
 		"/C/Users/Marcelo/AppData/Local/Temp/criafichasdevtmpadrao-1.php",
 		"/C/Windows/System32/drivers/etc/hosts",
@@ -310,6 +317,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"banido",
+			")",
+			"(",
 			"\"",
 			"false",
 			"exception",
@@ -344,7 +354,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -352,15 +362,15 @@
 					"file": "config/conn.php",
 					"settings":
 					{
-						"buffer_size": 793,
+						"buffer_size": 891,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								438,
-								438
+								450,
+								450
 							]
 						],
 						"settings":
@@ -376,24 +386,23 @@
 				},
 				{
 					"buffer": 1,
-					"file": "etc/Excessões do sistema",
+					"file": "class/topico_class.php",
 					"settings":
 					{
-						"buffer_size": 334,
+						"buffer_size": 2028,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								334,
-								334
+								6,
+								6
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Erros do sistema:",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -403,105 +412,26 @@
 				},
 				{
 					"buffer": 2,
-					"file": "obj/moderador_obj.php",
+					"file": "etc/Excessões do sistema",
 					"settings":
 					{
-						"buffer_size": 513,
+						"buffer_size": 465,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								47,
-								47
+								75,
+								42
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "obj/administrador_obj.php",
-					"settings":
-					{
-						"buffer_size": 485,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								47,
-								8
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "obj/registranovousuario_obj.php",
-					"settings":
-					{
-						"buffer_size": 727,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								56,
-								56
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "class/usuario_class.php",
-					"settings":
-					{
-						"buffer_size": 6947,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2894,
-								2866
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 756.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

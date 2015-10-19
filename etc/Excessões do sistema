@@ -1,12 +1,19 @@
 Excessões do sistema:
 
+Erros gerais:
+
+5 - Erro na chamada do banco de dados
+
 Erros de usuário:
 1 - Valores incorretos fornecidos na chamada da operação do usuário
 2 - Este usuário está banido
 3 - Este usuário está inativo
 4 - Este usuário não existe
-5 - Erro na chamada do banco de dados
 6 - Este usuário não é um moderador
 7 - Este moderador está inativo
 8 - Erro ao inserir novo usuário
 9 - Não foi possível entrar no sistema: Verifique seu usuário e sua senha e tenta novamente
+
+Erros de Tópico
+
+x - 

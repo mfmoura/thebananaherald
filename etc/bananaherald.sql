@@ -12,15 +12,21 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
+DROP DATABASE IF EXISTS `bananaherald`;
+
 CREATE DATABASE `bananaherald`
     CHARACTER SET 'utf8'
     COLLATE 'utf8_general_ci';
 
 USE `bananaherald`;
 
+SET sql_mode = 'NO_ENGINE_SUBSTITUTION';
+
 #
 # Structure for the `pais` table : 
 #
+
+DROP TABLE IF EXISTS `pais`;
 
 CREATE TABLE `pais` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -32,6 +38,8 @@ CREATE TABLE `pais` (
 #
 # Structure for the `estado` table : 
 #
+
+DROP TABLE IF EXISTS `estado`;
 
 CREATE TABLE `estado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,6 +55,8 @@ CREATE TABLE `estado` (
 # Structure for the `cidade` table : 
 #
 
+DROP TABLE IF EXISTS `cidade`;
+
 CREATE TABLE `cidade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(120) DEFAULT NULL,
@@ -60,6 +70,8 @@ CREATE TABLE `cidade` (
 # Structure for the `sexo` table : 
 #
 
+DROP TABLE IF EXISTS `sexo`;
+
 CREATE TABLE `sexo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sexoNome` varchar(45) NOT NULL,
@@ -69,6 +81,8 @@ CREATE TABLE `sexo` (
 #
 # Structure for the `usuarios` table : 
 #
+
+DROP TABLE IF EXISTS `usuarios`;
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -80,7 +94,6 @@ CREATE TABLE `usuarios` (
   `estado` int(11) DEFAULT NULL,
   `pais` int(11) DEFAULT NULL,
   `ban` datetime DEFAULT NULL,
-  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_cidade_idx` (`cidade`),
   KEY `fk_usuario_estado_idx` (`estado`),
@@ -90,11 +103,13 @@ CREATE TABLE `usuarios` (
   CONSTRAINT `fk_usuario_estado` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_pais` FOREIGN KEY (`pais`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_sexo` FOREIGN KEY (`sexo`) REFERENCES `sexo` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `assuntos` table : 
 #
+
+DROP TABLE IF EXISTS `assuntos`;
 
 CREATE TABLE `assuntos` (
   `id` int(11) NOT NULL,
@@ -110,6 +125,8 @@ CREATE TABLE `assuntos` (
 # Structure for the `sessoes` table : 
 #
 
+DROP TABLE IF EXISTS `sessoes`;
+
 CREATE TABLE `sessoes` (
   `id` int(11) NOT NULL,
   `nome` varchar(45) NOT NULL,
@@ -124,6 +141,8 @@ CREATE TABLE `sessoes` (
 # Structure for the `assunto_sessao` table : 
 #
 
+DROP TABLE IF EXISTS `assunto_sessao`;
+
 CREATE TABLE `assunto_sessao` (
   `assunto` int(11) NOT NULL,
   `sessao` int(11) NOT NULL,
@@ -137,6 +156,8 @@ CREATE TABLE `assunto_sessao` (
 #
 # Structure for the `topicos` table : 
 #
+
+DROP TABLE IF EXISTS `topicos`;
 
 CREATE TABLE `topicos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -159,6 +180,8 @@ CREATE TABLE `topicos` (
 # Structure for the `comentarios` table : 
 #
 
+DROP TABLE IF EXISTS `comentarios`;
+
 CREATE TABLE `comentarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` int(11) NOT NULL,
@@ -176,6 +199,8 @@ CREATE TABLE `comentarios` (
 # Structure for the `comentarios_pontuacao` table : 
 #
 
+DROP TABLE IF EXISTS `comentarios_pontuacao`;
+
 CREATE TABLE `comentarios_pontuacao` (
   `comentario` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
@@ -190,6 +215,8 @@ CREATE TABLE `comentarios_pontuacao` (
 # Structure for the `log_acessos_usuario` table : 
 #
 
+DROP TABLE IF EXISTS `log_acessos_usuario`;
+
 CREATE TABLE `log_acessos_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` int(11) NOT NULL,
@@ -202,6 +229,8 @@ CREATE TABLE `log_acessos_usuario` (
 #
 # Structure for the `login` table : 
 #
+
+DROP TABLE IF EXISTS `login`;
 
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
@@ -217,6 +246,8 @@ CREATE TABLE `login` (
 # Structure for the `login_admin` table : 
 #
 
+DROP TABLE IF EXISTS `login_admin`;
+
 CREATE TABLE `login_admin` (
   `id` int(11) NOT NULL,
   `login` varchar(45) NOT NULL,
@@ -230,6 +261,8 @@ CREATE TABLE `login_admin` (
 #
 # Structure for the `login_moderador` table : 
 #
+
+DROP TABLE IF EXISTS `login_moderador`;
 
 CREATE TABLE `login_moderador` (
   `id` int(11) NOT NULL,
@@ -245,6 +278,8 @@ CREATE TABLE `login_moderador` (
 # Structure for the `moderador_sessao` table : 
 #
 
+DROP TABLE IF EXISTS `moderador_sessao`;
+
 CREATE TABLE `moderador_sessao` (
   `moderador` int(11) NOT NULL,
   `sessao` int(11) NOT NULL,
@@ -258,6 +293,8 @@ CREATE TABLE `moderador_sessao` (
 # Structure for the `topico_pontuacao` table : 
 #
 
+DROP TABLE IF EXISTS `topico_pontuacao`;
+
 CREATE TABLE `topico_pontuacao` (
   `topico` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
@@ -267,6 +304,176 @@ CREATE TABLE `topico_pontuacao` (
   CONSTRAINT `fk_topico_topico_pontuacao` FOREIGN KEY (`topico`) REFERENCES `topicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_topico_pontuacao` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Definition for the `registranovousuario` procedure : 
+#
+
+DROP PROCEDURE IF EXISTS `registranovousuario`;
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `registranovousuario`(
+        IN nome VARCHAR(45),
+        IN email VARCHAR(45),
+        IN nascimento DATE,
+        IN sexo INTEGER(11),
+        IN cidade INTEGER(11),
+        IN estado INTEGER(11),
+        IN pais INTEGER(11),
+        IN login VARCHAR(45),
+        IN senha VARCHAR(32),
+        OUT result INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+    
+	INSERT INTO `usuarios`(
+    	`nome`,
+        `email`,
+        `nascimento`,
+        `sexo`,
+        `cidade`,
+        `estado`,
+        `pais`
+    )
+    VALUES(
+        nome,
+        email,
+        nascimento,
+        sexo,
+        cidade,
+        estado,
+        pais);
+    
+    SET result = (SELECT LAST_INSERT_ID()); 
+       
+    INSERT INTO `login`(
+    	`id`,
+        `login`,
+        `senha`
+    )
+    VALUES (
+    	result,
+        login,
+        senha
+    );
+    
+    COMMIT;
+END;
+
+#
+# Definition for the `login_geral` view : 
+#
+
+DROP VIEW IF EXISTS `login_geral`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW login_geral AS 
+  select 
+    `login`.`id` AS `id`,
+    `login`.`login` AS `login`,
+    `login`.`senha` AS `senha`,
+    `login`.`ativo` AS `ativo` 
+  from 
+    `login` union 
+  select 
+    `login_moderador`.`id` AS `id`,
+    `login_moderador`.`login` AS `login`,
+    `login_moderador`.`senha` AS `senha`,
+    `login_moderador`.`ativo` AS `ativo` 
+  from 
+    `login_moderador` union 
+  select 
+    `login_admin`.`id` AS `id`,
+    `login_admin`.`login` AS `login`,
+    `login_admin`.`senha` AS `senha`,
+    `login_admin`.`ativo` AS `ativo` 
+  from 
+    `login_admin` 
+  order by 
+    `id`;
+
+#
+# Definition for the `viewadministrador` view : 
+#
+
+DROP VIEW IF EXISTS `viewadministrador`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewadministrador AS 
+  select 
+    `login_admin`.`id` AS `id`,
+    `login_admin`.`ativo` AS `ativo` 
+  from 
+    `login_admin`;
+
+#
+# Definition for the `viewmoderadorsessoes` view : 
+#
+
+DROP VIEW IF EXISTS `viewmoderadorsessoes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewmoderadorsessoes AS 
+  select 
+    `login_moderador`.`id` AS `id`,
+    `login_moderador`.`ativo` AS `ativo`,
+    group_concat(`moderador_sessao`.`sessao` separator ',') AS `sessoes` 
+  from 
+    (`login_moderador` join `moderador_sessao` on((`moderador_sessao`.`moderador` = `login_moderador`.`id`)));
+
+#
+# Definition for the `viewtopicos` view : 
+#
+
+DROP VIEW IF EXISTS `viewtopicos`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewtopicos AS 
+  select 
+    `topicos`.`id` AS `id`,
+    `topicos`.`usuario` AS `usuario`,
+    `topicos`.`titulo` AS `titulo`,
+    `topicos`.`mensagem` AS `mensagem`,
+    sum(`a`.`pontuacao`) AS `pontos_positivos`,
+    sum(`b`.`pontuacao`) AS `pontos_negativos`,
+    `assunto_sessao`.`assunto` AS `id_assunto`,
+    `topicos`.`sessao` AS `id_sessao`,
+    `topicos`.`ativo` AS `ativo` 
+  from 
+    (((`topicos` join `assunto_sessao` on((`assunto_sessao`.`sessao` = `topicos`.`sessao`))) left join `topico_pontuacao` `a` on(((`a`.`topico` = `topicos`.`id`) and (`a`.`pontuacao` > 0)))) left join `topico_pontuacao` `b` on(((`b`.`topico` = `topicos`.`id`) and (`b`.`pontuacao` < 0)))) 
+  group by 
+    `topicos`.`id`;
+
+#
+# Definition for the `viewusuario` view : 
+#
+
+DROP VIEW IF EXISTS `viewusuario`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewusuario AS 
+  select 
+    `usuarios`.`id` AS `id`,
+    `usuarios`.`nome` AS `nome`,
+    `usuarios`.`email` AS `email`,
+    `usuarios`.`nascimento` AS `nascimento`,
+    `usuarios`.`sexo` AS `sexo`,
+    `usuarios`.`cidade` AS `cidade`,
+    `usuarios`.`estado` AS `estado`,
+    `usuarios`.`pais` AS `pais`,
+    `sexo`.`sexoNome` AS `sexoNome`,
+    `cidade`.`nome` AS `cidadeNome`,
+    `estado`.`nome` AS `estadoNome`,
+    `pais`.`nome` AS `paisNome`,
+    `usuarios`.`ban` AS `banimento`,
+    sum(`comentarios`.`id`) AS `numeroDeComentarios`,
+    sum(`topicos`.`id`) AS `numeroDeTopicos`,
+    (sum(`topico_pontuacao_positiva`.`pontuacao`) + sum(`comentario_pontuacao_positiva`.`pontuacao`)) AS `pontosPositivos`,
+    (sum(`topico_pontuacao_negativa`.`pontuacao`) + sum(`comentario_pontuacao_negativa`.`pontuacao`)) AS `pontosNegativos`,
+    `login_geral`.`ativo` AS `ativo`,
+    max(`log_acessos_usuario`.`data`) AS `ultimoLogin` 
+  from 
+    ((((((((((((`usuarios` join `login_geral` on((`usuarios`.`id` = `login_geral`.`id`))) left join `topicos` on((`topicos`.`usuario` = `topicos`.`id`))) left join `comentarios` on((`comentarios`.`usuario` = `usuarios`.`id`))) left join `topico_pontuacao` `topico_pontuacao_positiva` on(((`topico_pontuacao_positiva`.`topico` = `topicos`.`id`) and (`topico_pontuacao_positiva`.`pontuacao` > 0)))) left join `topico_pontuacao` `topico_pontuacao_negativa` on(((`topico_pontuacao_negativa`.`topico` = `topicos`.`id`) and (`topico_pontuacao_negativa`.`pontuacao` < 0)))) left join `comentarios_pontuacao` `comentario_pontuacao_positiva` on(((`comentario_pontuacao_positiva`.`comentario` = `comentarios`.`id`) and (`comentario_pontuacao_positiva`.`pontuacao` > 0)))) left join `comentarios_pontuacao` `comentario_pontuacao_negativa` on(((`comentario_pontuacao_negativa`.`comentario` = `comentarios`.`id`) and (`comentario_pontuacao_negativa`.`pontuacao` < 0)))) left join `log_acessos_usuario` on((`log_acessos_usuario`.`usuario` = `usuarios`.`id`))) left join `cidade` on((`usuarios`.`cidade` = `cidade`.`id`))) left join `estado` on((`usuarios`.`estado` = `estado`.`id`))) left join `pais` on((`usuarios`.`pais` = `pais`.`id`))) left join `sexo` on((`usuarios`.`sexo` = `sexo`.`id`))) 
+  group by 
+    `usuarios`.`id`;
 
 #
 # Data for the `pais` table  (LIMIT 0,500)
@@ -6223,11 +6430,40 @@ COMMIT;
 # Data for the `usuarios` table  (LIMIT 0,500)
 #
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `nascimento`, `sexo`, `cidade`, `estado`, `pais`, `ban`, `ativo`) VALUES 
-  (1,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,5270,26,33,NULL,1),
-  (2,'Jonácio','jona@cio.com','1987-10-10',1,5270,26,33,NULL,1),
-  (3,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL,1),
-  (4,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL,1);
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `nascimento`, `sexo`, `cidade`, `estado`, `pais`, `ban`) VALUES 
+  (1,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,5270,26,33,NULL),
+  (2,'Jonácio','jona@cio.com','1987-10-10',1,5270,26,33,NULL),
+  (3,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL),
+  (4,'Jonácio','jona@cio.com','1987-10-10',1,1,1,1,NULL),
+  (5,'qs3e2','asdqdw','2010-10-10',1,411,2,33,NULL),
+  (6,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (7,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (8,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (9,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (10,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (11,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (12,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (13,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (14,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (15,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (16,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (17,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (18,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (19,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (20,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (21,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (22,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (23,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (24,'cu','cu','1800-01-10',1,1,1,1,NULL),
+  (25,'cu','cu','1800-01-10',1,1,1,1,NULL),
+  (26,'cu','cu','1800-01-10',1,1,1,1,NULL),
+  (27,'cu','cu','1800-01-10',1,1,1,1,NULL),
+  (28,'cu','cu','1800-01-10',1,1,1,1,NULL),
+  (29,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (30,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (31,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (32,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL),
+  (33,'Marcelo Francisco Moura','cogumetal@gmail.com','1987-03-28',1,1,1,1,NULL);
 COMMIT;
 
 #
@@ -6246,7 +6482,27 @@ COMMIT;
 
 INSERT INTO `login` (`id`, `login`, `senha`, `ativo`) VALUES 
   (2,'jonacio','fca871afbde9295f8bbeadb0f611f0d6',1),
-  (4,'jonacio2','fca871afbde9295f8bbeadb0f611f0d6',1);
+  (4,'jonacio2','fca871afbde9295f8bbeadb0f611f0d6',1),
+  (5,'sadfqasdasf','qwer12yerg12rg12uyrhud982s9182hd',1),
+  (6,'marcelo','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (8,'francisco','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (9,'baptistadsaaa','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (10,'asdqwq','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (11,'sdfewg','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (12,'asdasrfqwrqr','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (15,'fsgfdsgdsgsd','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (16,'34235235wet','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (18,'412wqrfasf','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (19,'iujniuascn','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (20,'412353','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (23,'1235tewrgdsg','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (24,'cu','cu',1),
+  (26,'cuzão','cu',1),
+  (27,'cuzã','cu',1),
+  (28,'csuzã','cu',1),
+  (29,'4211412','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (31,'nasiufnsaiufnmaiosnmdfioa','e82e0b70b23adb481fb60abd83fb5e88',1),
+  (33,'dfdsg','e82e0b70b23adb481fb60abd83fb5e88',1);
 COMMIT;
 
 #

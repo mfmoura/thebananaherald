@@ -25,10 +25,10 @@
 		public $paisNome;
 
 		// Somas diversas a serem exibidas no perfil do usuário
-		protected $numeroDeTopicos;
-		protected $numeroDeComentarios;
-		protected $pontosPositivos;
-		protected $pontosNegativos;
+		protected $numeroDeTopicos = 0;
+		protected $numeroDeComentarios = 0;
+		protected $pontosPositivos = 0;
+		protected $pontosNegativos = 0;
 		
 
 		// Status do usuário - Até quando está banido e se está ativo no site
@@ -48,7 +48,7 @@
 				$this->validaAcesso($input);
 				return true;
 			}
-			if (preg_match("/{\"nome\":\"[\w ]{1,}\",\"email\":\"[\w@.]{1,}\",\"nascimento\":\"\d{4}(-\d{2}){2}\",\"sexo\":\"\d{1,}\",\"cidade\":\"\d{1,}\",\"estado\":\"\d{1,}\",\"pais\":\"\w{1,}\",\"usuario\":\"\w{1,}\",\"senha\":\"\w{32}\"}/", $input)){
+			if (preg_match("/{\"nome\":\"[\w ]{1,}\",\"email\":\"[\w.]{1,}@{1}[\w.]{1,}\",\"nascimento\":\"\d{4}(-\d{2}){2}\",\"sexo\":\"\d{1,}\",\"cidade\":\"\d{1,}\",\"estado\":\"\d{1,}\",\"pais\":\"\w{1,}\",\"usuario\":\"\w{1,}\",\"senha\":\"\w{32}\"}/", $input)){
 				
 				$assoc_array = json_decode($input, TRUE);
 
@@ -103,6 +103,7 @@
 				$stmt2->bind_result($id);
 				$stmt2->fetch();
 				$this->id = $id;
+				$this->ativo = 1;
 			}
 			else {
 				echo $stmt->error . PHP_EOL;
@@ -166,6 +167,8 @@
 					$this->pontosNegativos,
 					$this->ultimoLogin,
 					$this->ativo);
+
+				$stmt->fetch();
 			}
 			else {
 				throw new Exception("Erro na chamada do banco de dados", 5);

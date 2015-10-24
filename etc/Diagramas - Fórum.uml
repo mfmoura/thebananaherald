@@ -3300,7 +3300,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">820,208;1236,208;1236,224</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">820,248;1236,248</XPD:ATTR>
 <XPD:REF name="Model">SmavmpPSe0aXzmVWOqLy2QAA</XPD:REF>
 <XPD:REF name="Head">XyBC7Eyx+k2PdoPVHslkSwAA</XPD:REF>
 <XPD:REF name="Tail">GeDLibSiEEShq7GqGPpv4gAA</XPD:REF>

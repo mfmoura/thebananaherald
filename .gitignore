@@ -9,6 +9,13 @@
 .bak
 
 #############
+## Arquivos do Sublime Text
+##############
+
+.sublime-project
+.sublime-workspace
+
+#############
 ## Windows detritus
 #############
 

@@ -14,6 +14,11 @@ Erros de usuário:
 8 - Erro ao inserir novo usuário
 9 - Não foi possível entrar no sistema: Verifique seu usuário e sua senha e tenta novamente
 
+Erro de Sessão
+
+10 - Esta sessão está inativa
+11 - Essa sessão não existe
+
 Erros de Tópico
 
 x - 

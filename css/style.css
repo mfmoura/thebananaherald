@@ -1,0 +1,376 @@
+/*@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);*/
+
+body{
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #eeeeee;
+}
+
+.margin-right{
+  border-right: 1px solid #ddd;
+}
+
+header{
+  background-color: #ffe54b;
+}
+
+  header .logo{
+    background:url('../images/sprite-banana.png')no-repeat 0 0;
+  	width: 310px;
+  	height: 63px;
+    color: transparent;
+    margin: 10px 0;
+  }
+  header nav.menu{
+    float: right;
+    height: 83px;
+  }
+    header nav.menu ul {
+      height: 100%;
+    }
+      header nav.menu ul li{
+        float: left;
+        list-style-type: none;
+        text-transform: uppercase;
+        font-size: 20px;
+        height: 100%;
+        padding: 25px 15px 0;
+        cursor: pointer;
+      }
+      header nav.menu ul li:hover{
+        background-color: #222;
+      }
+
+        header nav.menu ul li a {
+          height: 83px;
+          color:#222;
+          text-decoration: none;
+        }
+        header nav.menu ul li:hover a{
+          color: #fff;
+        }
+
+  section.destaque{
+    width: 100%;
+    height: 590px;
+    background-image: url('../images/bg-destaque.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    text-align: center;
+  }
+    .destaque-banana-herald{
+      background: url('../images/sprite-banana.png') no-repeat 0 -90px;
+    	width: 675px;
+    	height: 167px;
+      color: transparent;
+      margin-top: 200px;
+      margin-left: 18%;
+    }
+    section{
+      padding: 40px 0;
+    }
+    section.cad-pesq .cad input{
+      width: 95%;
+      height: 60px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      text-transform: uppercase;
+
+    }
+      section.cad-pesq .cad input.cad-agora{
+        background-color: #0f9183;
+        color: #fff;
+      }
+      section.cad-pesq .cad h3 {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+        section.cad-pesq .cad h3 div.icon{
+          background: url('../images/sprite-banana.png') no-repeat -52px -270px;
+          width: 50px;
+          height: 30px;
+          display: inline-block;
+          margin-right: 20px;
+        }
+        section.cad-pesq .pesq{
+          font-weight: 300;
+        }
+          section.cad-pesq .pesq ul{
+            margin: 0;
+            padding: 0;
+          }
+
+        section.cad-pesq .pesq li {
+          width: 100%;
+          height: 30px;
+          list-style-type: none;
+          margin-left: 0;
+          margin-bottom: 10px
+        }
+          section.cad-pesq .pesq li span {
+            margin-left: 15px
+          }
+
+          section.cad-pesq .pesq h3 {
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          section.cad-pesq .pesq input.ok-btn{
+            height: 60px;
+            width: 100%;
+            text-transform: uppercase;
+            background-color: #bbb;
+            border: 0;
+            font-weight: 400;
+            color: #fff;
+
+          }
+            section.cad-pesq .pesq h3 div.icon-2{
+              background: url('../images/sprite-banana.png') no-repeat -1px -272px;
+            	width: 35px;
+            	height: 25px;
+              display: inline-block;
+              margin-right: 20px;
+            }
+  section.top-da-semana{
+    text-align: center;
+    height: 457px;
+  }
+
+  section.top-da-semana h3{
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+    section.top-da-semana h3 .icon-3{
+      background: url('../images/sprite-banana.png') no-repeat -116px -273px;
+    	width: 26px;
+    	height: 25px;
+      display: inline-block;
+      margin-right: 20px;
+    }
+  section.top-da-semana .top-game{
+    width: 25%;
+    float: left;
+    height: 320px;
+    cursor: pointer;
+
+  }
+  section.top-da-semana .top-game .hover-top{
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    padding: 50px 10px 0px;
+    display: none;
+  }
+  section.top-da-semana .top-game:hover .hover-top{
+    display: block;
+  }
+      section.top-da-semana .top-game .hover-top .star-4{
+
+      }
+      section.top-da-semana .top-game .hover-top .btn-ver-agora{
+        padding: 8px;
+        border: 1px solid #fff;
+        width: 80%;
+        margin:0 auto;
+      }
+
+      .star-4{
+        background: url('../images/star.png') no-repeat -1px -166px;
+      	width: 202px;
+      	height: 33px;
+        margin: 20px auto;
+      }
+
+  section.banana-numeros{
+
+    text-align: center;
+  }
+  section.banana-numeros .icon-visitantes{
+    background: url('../images/sprite-banana.png') no-repeat -1px -308px;
+  	width: 133px;
+  	height: 97px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+
+  section.banana-numeros .icon-post{
+    background: url('../images/sprite-banana.png') no-repeat -167px -300px;
+  	width: 82px;
+  	height: 104px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+
+  section.banana-numeros .icon-curtidas{
+    background: url('../images/sprite-banana.png') no-repeat -287px -297px;
+  	width: 95px;
+  	height: 105px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+
+  .banana-numeros{
+    font-size: 40px;
+    font-weight: 600;
+    color: #228b7e;
+
+  }
+
+  .banana-numeros .banana-numeros-txt{
+    font-size: 18px;
+    color: #222;
+    font-weight: 300;
+  }
+  footer{
+    background: #ffe54b;
+    height: 70px;
+    padding: 10px;
+    width: 100%;
+
+  }
+    footer .icon-banana{
+      background: url('../images/sprite-banana.png') no-repeat -12px -429px;
+    	width: 38px;
+    	height: 51px;
+      float: left;
+    }
+    footer p {
+      line-height: 50px;
+      margin-left: 20px;
+      float: left;
+    }
+    footer .center{
+      margin: 0 auto;
+      width: 270px;
+    }
+
+/* Admin */
+main#admin{
+  background: #dddddd; /* Old browsers */
+background: -moz-linear-gradient(left, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#dddddd), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left, #dddddd 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left, #dddddd 0%,#eeeeee 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left, #dddddd 0%,#eeeeee 100%); /* IE10+ */
+background: linear-gradient(to right, #dddddd 0%,#eeeeee 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+}
+
+.bg-clean{
+  background: #eee;
+  height: 100%;
+  padding: 20px 0;
+}
+.note-editable.panel-body {
+  height: 350px;
+}
+
+main .container aside.profile{
+  text-align: center;
+  color: #555;
+  background-color: #ddd;
+  padding: 20px 10px;
+  float: left;
+  height: 100%;
+}
+  .profile-img img{
+      width: 90%;
+      height: auto;
+      padding: 10px;
+      border: 1px solid #555;
+    }
+  aside h3.nickname{
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+  aside p.level{
+    font-size: 25px;
+    color: #555;
+    font-weight: 300px;
+  }
+    aside nav.adm-menu ul {
+      width: 100%;
+      float: left;
+      padding: 0;
+      margin: 0;
+    }
+      aside nav.adm-menu ul li{
+        list-style: none;
+        border-bottom: 1px solid #555;
+        padding: 10px 0;
+        text-transform: capitalize;
+        text-align: left;
+    }
+        aside nav.adm-menu ul li.select{
+          font-weight: 600;
+          position: relative;
+
+        }
+
+          aside nav.adm-menu ul li.select:after{
+            content:"";
+            width: 20px;
+            height: 20px;
+            background: url(../images/arrow.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            position: absolute;
+            right: 0;
+            top: 10px;
+          }
+.post input[type="text"] {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.post select {
+  width: 100%;
+  height: 50px;
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: 10px;
+  color: #999;
+  position: relative;
+}
+  .post .select-cat:before{
+    content:"";
+    width: 30px;
+    height: 30px;
+    background: url(../images/arrow.png) no-repeat center right;
+    -webkit-transform: rotate(90deg);
+   -moz-transform: rotate(90deg);
+   -ms-transform: rotate(90deg);
+   -o-transform: rotate(90deg);
+   transform: rotate(90deg);
+   position: absolute;
+   right: 10px;
+   top: 20px;
+  }
+
+.post input[type="button"] {
+  width: 200px;
+  height: 50px;
+  text-transform: uppercase;
+  background-color: #0f9183;
+  color: #fff;
+  border: none;
+  float: right;
+  margin-top: 20px;
+}

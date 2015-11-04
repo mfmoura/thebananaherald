@@ -1,3 +1,0 @@
-Nesta pasta, ficam os arquivos de css do sistema.
-
-Esta pasta deverá ser protegida do acesso dos usuários, podendo ser editada apenas pelo próprio servidor, porém lida e executada por outros usuários.

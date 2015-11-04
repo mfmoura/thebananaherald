@@ -64,7 +64,7 @@ $(document).ready(function(){
        $.ajax({
          url: '/obj/topico_insere_obj.php',
          type: 'post',
-         data: {"idUsuario":idUsuario,"titulo":titulo,"mensagem":mensagem,"assunto":assunto,"sessao":{"sessao1":sessao},
+         data: {"idUsuario":idUsuario,"titulo":titulo,"mensagem":mensagem,"assunto":assunto,"sessao":{"sessao1":sessao}},
          
          success: function()
          {

@@ -18,16 +18,20 @@
       </div>
       <div class="row col-md-8 bg-clean">
         <div class="post">
-          <form action="post">
+          <form method="post" action="" id="ajax_form">
               <h4 class="title-new t-post">Novo post</h4>
-              <input type="text" name="name" value="" placeholder="Titulo Aqui">
-              <div id="summernote">Hello Summernote</div>
-              <select class="select-cat" name="">
-                <option value="cat-1"> cat-1 </option>
+              <input id="id-usuario" type="hidden" name="idUsuario" value="26">
+              <input id="titulo" type="text" name="titulo" value="" placeholder="Titulo Aqui">
+              <div id="summernote">
+
+              </div>
+              <select id="assunto" class="select-cat" name="assunto">
+                <option value="1"> Assunto Teste</option>
                 <option value="cat-2"> cat-2 </option>
                 <option value="cat-3"> cat-3 </option>
               </select>
-              <input type="button" name="envia" value="Publicar">
+              <input id="sessao" type="hidden" name="sessao" value="1">
+              <input type="submit" type="submit" name="enviar" value="Publicar">
           </form>
         </div>
       </div>
@@ -35,6 +39,47 @@
   </div>
 </main>
 <script type="text/javascript">
+$(document).ready(function(){
+   $('#ajax_form').validate({
+     rules: {
+       nome: { required: true, minlength: 2 },
+
+     },
+     messages: {
+       nome: { required: 'Preencha o campo nome', minlength: 'No mínimo 2 letras' },
+
+
+     },
+     submitHandler: function( form ){
+
+
+       var mensagem = $('.note-editable.panel-body').text(),
+           idUsuario = $('#id-usuario').val(),
+           titulo = $('#titulo').val(),
+           assunto = $('#assunto').val(),
+           sessao = $('#sessao').val();
+
+
+
+       $.ajax({
+         url: '/obj/topico_insere_obj.php',
+         type: 'post',
+         data: {"idUsuario":idUsuario,"titulo":titulo,"mensagem":mensagem,"assunto":assunto,"sessao":{"sessao1":sessao},
+         
+         success: function()
+         {
+             $('body').append('TESTE TESTE TESTE');
+         }
+       });
+
+       return false;
+     }
+   });
+ });
+
+
+
+
 $(document).ready(function() {
   $('#summernote').summernote();
 });

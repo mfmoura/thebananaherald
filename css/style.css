@@ -374,3 +374,28 @@ main .container aside.profile{
   float: right;
   margin-top: 20px;
 }
+
+
+/* Post */
+.post-area  {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.post-area h2.post-title{
+  font-size: 20px;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+.post-area .post-img{
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.post-area .post-txt{
+  font-size: 14px;
+  color: #999;
+}

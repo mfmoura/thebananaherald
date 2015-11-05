@@ -20,7 +20,7 @@
 			if (is_numeric($input)){
 				$this->exibeTopico($input);
 			}
-			else if (preg_match("/{\"idUsuario\":\"\d{1,11}\",\"titulo\":\"[\w ]{1,45}\",\"mensagem\":\"[\w \n]{1,1024}\",\"assunto\":\"\d{1,11}\",\"sessao\":{(\"sessao\d\":\"\d{1,11}\"(,|}))+}/", $input)){
+			else if (preg_match("/{\"idUsuario\":\"\d{1,11}\",\"titulo\":\"[\w ]{1,45}\",\"mensagem\":\"[\w \\/\n\<\>\&\;\-\:\=]{1,1024}\",\"assunto\":\"\d{1,11}\",\"sessao\":{(\"sessao\d\":\"\d{1,11}\"(,|}))+}/", $input)){
 				$this->enviaMensagem($input);
 
 			}

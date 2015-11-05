@@ -41,9 +41,21 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+      $('#summernote').summernote();
+      
+      $('.summernote').summernote(
+          {
+          height: 300,                 // set editor height
+          minHeight: null,             // set minimum height of editor
+          maxHeight: null,             // set maximum height of editor
+          focus: true,                 // set focus to editable area after initializing summernote
+          }
+      );
+
       $("#submit").click(function(){
 
-         var mensagem = $('.note-editable.panel-body').text();
+         var texto_inescapado = $('#summernote').code();
+         var mensagem = texto_inescapado.replace(/\"/g, "&quot;");
          var idUsuario = $('#id-usuario').val();
          var titulo = $('#titulo').val();
          var assunto = $('#assunto').val();
@@ -68,21 +80,6 @@ $(document).ready(function(){
        }
       );
    });
-
-
-
-
-$(document).ready(function() {
-  $('#summernote').summernote();
-});
-$('.summernote').summernote(
-    {
-    height: 300,                 // set editor height
-    minHeight: null,             // set minimum height of editor
-    maxHeight: null,             // set maximum height of editor
-    focus: true,                 // set focus to editable area after initializing summernote
-    }
-);
 
 </script>
 <?php include "footer.php" ?>

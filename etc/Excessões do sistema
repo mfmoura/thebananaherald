@@ -19,6 +19,12 @@ Erro de Sessão
 10 - Esta sessão está inativa
 11 - Essa sessão não existe
 
-Erros de Tópico
+Erro de Comentário
+
+12 - Este comentário está inativo
+
+Erro de tópico:
+
+13 - Não foi inserido um valor válido pra processamento do tópico.\n Valor Recebido: $input
 
 x - 

@@ -18,7 +18,7 @@
       </div>
       <div class="row col-md-8 bg-clean">
         <div class="post">
-          <form method="post" action="" id="ajax_form">
+          <form id="ajax_form">
               <h4 class="title-new t-post">Novo post</h4>
               <input id="id-usuario" type="hidden" name="idUsuario" value="26">
               <input id="titulo" type="text" name="titulo" value="" placeholder="Titulo Aqui">
@@ -31,7 +31,7 @@
                 <option value="cat-3"> cat-3 </option>
               </select>
               <input id="sessao" type="hidden" name="sessao" value="1">
-              <input type="submit" type="submit" name="enviar" value="Publicar">
+              <input type="button" type="submit" id="submit" name="enviar" value="Publicar">
           </form>
         </div>
       </div>
@@ -40,42 +40,34 @@
 </main>
 <script type="text/javascript">
 $(document).ready(function(){
-   $('#ajax_form').validate({
-     rules: {
-       nome: { required: true, minlength: 2 },
 
-     },
-     messages: {
-       nome: { required: 'Preencha o campo nome', minlength: 'No mínimo 2 letras' },
+      $("#submit").click(function(){
 
+         var mensagem = $('.note-editable.panel-body').text();
+         var idUsuario = $('#id-usuario').val();
+         var titulo = $('#titulo').val();
+         var assunto = $('#assunto').val();
+         var sessao = $('#sessao').val();
 
-     },
-     submitHandler: function( form ){
+         /*$.ajax({
+           url: 'obj/topico_insere_obj.php',
+           type: 'post',
+           data: postInsere="{\"idUsuario\":\""+idUsuario+"\",\"titulo\":\""+titulo+"\",\"mensagem\":\""+mensagem+"\",\"assunto\":\""+assunto+",\"sessao\":{\"sessao1\":\""+sessao+"\"}}",
 
+           success: function()
+           {
+               $('body').append(decode(retorno) + "uiahsdiuahdiuashdiuas");
+           }
+         });
 
-       var mensagem = $('.note-editable.panel-body').text(),
-           idUsuario = $('#id-usuario').val(),
-           titulo = $('#titulo').val(),
-           assunto = $('#assunto').val(),
-           sessao = $('#sessao').val();
+         return false;*/
 
-
-
-       $.ajax({
-         url: '/obj/topico_insere_obj.php',
-         type: 'post',
-         data: {"idUsuario":idUsuario,"titulo":titulo,"mensagem":mensagem,"assunto":assunto,"sessao":{"sessao1":sessao}},
-         
-         success: function()
-         {
-             $('body').append('TESTE TESTE TESTE');
-         }
-       });
-
-       return false;
-     }
+         $.post('obj/topico_insere_obj.php', {postInsere: "{\"idUsuario\":\""+idUsuario+"\",\"titulo\":\""+titulo+"\",\"mensagem\":\""+$.trim(mensagem)+"\",\"assunto\":\""+assunto+"\",\"sessao\":{\"sessao1\":\""+sessao+"\"}}"}, function(data) {
+           alert(data);
+         });
+       }
+      );
    });
- });
 
 
 

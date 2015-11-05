@@ -20,16 +20,16 @@
 			if (is_numeric($input)){
 				$this->exibeTopico($input);
 			}
-			else if (preg_match("/{\"idUsuario\":\"\d{1,11}\",\"titulo\":\"\w{1,45}\",\"mensagem\":\"\w{1,1024}\",\"assunto\":\"\d{1,11}\",\"sessao\":{(\"sessao\d\":\"\d{1,11}\"(,|}))+}/", $input)){
+			else if (preg_match("/{\"idUsuario\":\"\d{1,11}\",\"titulo\":\"[\w ]{1,45}\",\"mensagem\":\"[\w \n]{1,1024}\",\"assunto\":\"\d{1,11}\",\"sessao\":{(\"sessao\d\":\"\d{1,11}\"(,|}))+}/", $input)){
 				$this->enviaMensagem($input);
 
 			}
 			else {
-				throw new Exception("Error Processing Request", 1);	
+				throw new Exception("Não foi inserido um valor válido pra processamento do tópico.\n Valor Recebido: " . $input, 13);	
 			}
 		}
 
-		private function exibeTopico($id){ // Exibe o tópico da ID referida
+		function exibeTopico($id){ // Exibe o tópico da ID referida
 			include("../config/conn.php");
 
 			$stmt = $conn->prepare("SELECT
@@ -65,7 +65,9 @@
 					$idSessao,
 					$ativo);
 
-				$stmt->fetch();
+				if (is_null($stmt->fetch())){
+					throw new Exception("Esse tópico não existe", 13);
+				}
 
 				$this->idUsuario = $idUsuario;
 				$this->titulo = $titulo;
@@ -96,27 +98,42 @@
 
 		}
 
-		private function enviaMensagem(){ // Grava o topico e retorna a ID criada 
+		function enviaMensagem($json){ // Grava o topico e retorna a ID criada 
+			$json = nl2br($json);
+			$arr = json_decode($json, TRUE);
 
 			include("../config/conn.php");
 
-			$stmt = $conn->prepare("CALL registranovotopico(?, ?, ?, ?, ?,@out)");
-			$stmt->bind_param('issii', $this->idUsuario, $this->titulo, $this->mensagem, $this->idAssunto, $this->idSessao);
+			$stmt = $conn->prepare("CALL registranovotopico(?, ?, ?, ?, @out)");
+			$stmt->bind_param('issi', $param1, $param2, $param3, $param4);
+
+			$param1 = $arr['idUsuario'];
+			$param2 = $arr['titulo'];
+			$param3 = $arr['mensagem'];
+			$param4 = $arr['assunto'];
 
 			if ($stmt->execute()){
 				$stmt2 = $conn->prepare("SELECT @out");
+				$stmt2->execute();
+				$stmt2->bind_result($id);
 				$stmt2->fetch();
-
-				$smtp2->bind_result($this->id);
+				
+				$this->id = $id;
+				$this->idUsuario = $arr['idUsuario'];
+				$this->titulo = $arr['titulo'];
+				$this->mensagem = $arr['mensagem'];
+				$this->idAssunto = $arr['assunto'];
 				$this->ativo = 1;
+
+
 
 			}
 			else {
-				throw new Exception("Erro na chamada do banco de dados", 5);
+				throw new Exception("Erro na chamada do banco de dados: " . $conn->error . print_r($arr), 5);
 			}
 		}
 
-		public function exibeComentarios($pagina, $mensagensPorPagina){ // Retorna uma array associativa com as IDs dos comentários da página requisitada
+		function exibeComentarios($pagina, $mensagensPorPagina){ // Retorna uma array associativa com as IDs dos comentários da página requisitada
 			include("../config/conn.php");
 
 			$stmt = $conn->prepare("SELECT id FROM viewcomentario WHERE topico = ? LIMIT ?,?");

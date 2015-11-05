@@ -1,9 +1,9 @@
 <?php 
 
-	include("../class/topico.php");
+	include("../class/topico_class.php");
 
 	try {
-		$topico = new topico($_POST['json_topico']);
+		$topico = new topico($_POST['postInsere']);
 
 		echo "Cadastrado com sucesso! Tópico nº. " . $topico->id . "\n";
 	} 

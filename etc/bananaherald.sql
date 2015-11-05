@@ -23,6 +23,20 @@ USE `bananaherald`;
 SET sql_mode = 'NO_ENGINE_SUBSTITUTION';
 
 #
+# Structure for the `assunto_nota` table : 
+#
+
+DROP TABLE IF EXISTS `assunto_nota`;
+
+CREATE TABLE `assunto_nota` (
+  `assunto` int(11) NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `nota` float DEFAULT NULL,
+  PRIMARY KEY (`usuario`,`assunto`),
+  UNIQUE KEY `uk_assunto_nota_usuario` (`assunto`,`usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
 # Structure for the `pais` table : 
 #
 
@@ -165,16 +179,13 @@ CREATE TABLE `topicos` (
   `titulo` varchar(45) NOT NULL,
   `mensagem` varchar(1024) NOT NULL,
   `assunto` int(11) NOT NULL,
-  `sessao` int(11) NOT NULL,
   `ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_topico_idx` (`usuario`),
   KEY `fk_assunto_topico_idx` (`assunto`),
-  KEY `fk_sessao_topico_idx` (`sessao`),
   CONSTRAINT `fk_assunto_topico` FOREIGN KEY (`assunto`) REFERENCES `assuntos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sessao_topico` FOREIGN KEY (`sessao`) REFERENCES `sessoes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_topico` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `comentarios` table : 
@@ -306,10 +317,112 @@ CREATE TABLE `topico_pontuacao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
+# Structure for the `topico_sessao` table : 
+#
+
+DROP TABLE IF EXISTS `topico_sessao`;
+
+CREATE TABLE `topico_sessao` (
+  `topico` int(11) NOT NULL,
+  `sessao` int(11) NOT NULL,
+  PRIMARY KEY (`topico`,`sessao`),
+  KEY `fk_topico_sessao_topico_idx` (`sessao`),
+  CONSTRAINT `fk_topico_sessao_sessao` FOREIGN KEY (`sessao`) REFERENCES `sessoes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_topico_sessao_topico` FOREIGN KEY (`topico`) REFERENCES `topicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Definition for the `registraassuntosessao` procedure : 
+#
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `registraassuntosessao`$$
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `registraassuntosessao`(
+        IN assunto INTEGER(11),
+        IN sessao INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	INSERT INTO
+    	`assunto_sessao`(
+        	`assunto_sessao`.`assunto`,
+            `assunto_sessao`.`sessao`)
+    VALUES(
+    	assunto,
+        sessao
+    );
+END$$
+
+#
+# Definition for the `registranovasessao` procedure : 
+#
+
+DROP PROCEDURE IF EXISTS `registranovasessao`$$
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `registranovasessao`(
+        IN nome VARCHAR(45),
+        IN admin_criador INTEGER(11),
+        OUT id INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	INSERT INTO `sessoes`(
+    	`sessoes`.`nome`, 
+        `sessoes`.`admin_criador`
+        )
+    VALUES(
+    	nome,
+        admin_criador
+    );
+    
+    set id = LAST_INSERT_ID();
+END$$
+
+#
+# Definition for the `registranovotopico` procedure : 
+#
+
+DROP PROCEDURE IF EXISTS `registranovotopico`$$
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `registranovotopico`(
+        IN id_usuario INTEGER(11),
+        IN titulo VARCHAR(45),
+        IN mensagem VARCHAR(45),
+        IN assunto INTEGER(11),
+        OUT id INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	INSERT INTO topicos (
+    	`topicos`.`usuario`,
+        `topicos`.`titulo`,
+        `topicos`.`mensagem`,
+        `topicos`.`assunto`)
+    VALUES (
+    	id_usuario,
+        titulo,
+        mensagem,
+        assunto);
+        
+    SET id = LAST_INSERT_ID();
+END$$
+
+#
 # Definition for the `registranovousuario` procedure : 
 #
 
-DROP PROCEDURE IF EXISTS `registranovousuario`;
+DROP PROCEDURE IF EXISTS `registranovousuario`$$
 
 CREATE DEFINER = 'root'@'localhost' PROCEDURE `registranovousuario`(
         IN nome VARCHAR(45),
@@ -361,7 +474,63 @@ BEGIN
     );
     
     COMMIT;
-END;
+END$$
+
+#
+# Definition for the `registraTopicoSessao` procedure : 
+#
+
+DROP PROCEDURE IF EXISTS `registraTopicoSessao`$$
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `registraTopicoSessao`(
+        IN topico INTEGER(11),
+        IN sessao INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	INSERT INTO
+    	`topico_sessao` (
+        	`topico_sessao`.`topico`,
+        	`topico_sessao`.`sessao`
+        )
+    VALUES (
+    	topico,
+        sessao
+        );
+END$$
+
+#
+# Definition for the `regristranovoassunto` procedure : 
+#
+
+DROP PROCEDURE IF EXISTS `regristranovoassunto`$$
+
+CREATE DEFINER = 'root'@'localhost' PROCEDURE `regristranovoassunto`(
+        IN nome varchar(45),
+        IN admin_criador INTEGER(11),
+        OUT id INTEGER(11)
+    )
+    NOT DETERMINISTIC
+    CONTAINS SQL
+    SQL SECURITY DEFINER
+    COMMENT ''
+BEGIN
+	INSERT INTO `assuntos`(
+    	`assuntos`.`nome`, 
+        `assuntos`.`admin_criador`
+        )
+    VALUES(
+    	nome,
+        admin_criador
+    );
+    
+    set id = LAST_INSERT_ID();
+END$$
+
+DELIMITER ;
 
 #
 # Definition for the `login_geral` view : 
@@ -408,6 +577,45 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
     `login_admin`;
 
 #
+# Definition for the `viewassuntos` view : 
+#
+
+DROP VIEW IF EXISTS `viewassuntos`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewassuntos AS 
+  select 
+    `assuntos`.`id` AS `id`,
+    `assuntos`.`nome` AS `nome`,
+    `assuntos`.`admin_criador` AS `admin_criador`,
+    avg(`assunto_nota`.`nota`) AS `nota`,
+    group_concat(`assunto_sessao`.`sessao` separator ',') AS `sessao`,
+    `assuntos`.`ativo` AS `ativo` 
+  from 
+    ((`assuntos` join `assunto_sessao` on((`assunto_sessao`.`assunto` = `assuntos`.`id`))) left join `assunto_nota` on((`assunto_nota`.`assunto` = `assuntos`.`id`))) 
+  group by 
+    `assuntos`.`id`;
+
+#
+# Definition for the `viewcomentarios` view : 
+#
+
+DROP VIEW IF EXISTS `viewcomentarios`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewcomentarios AS 
+  select 
+    `comentarios`.`id` AS `id`,
+    `comentarios`.`usuario` AS `usuario`,
+    `comentarios`.`mensagem` AS `mensagem`,
+    count(`a`.`pontuacao`) AS `pontos_positivos`,
+    count(`b`.`pontuacao`) AS `pontos_negativos`,
+    `comentarios`.`topico` AS `topico`,
+    `comentarios`.`ativo` AS `ativo` 
+  from 
+    ((`comentarios` left join `comentarios_pontuacao` `a` on((`a`.`comentario` = `comentarios`.`id`))) left join `comentarios_pontuacao` `b` on((`b`.`comentario` = `comentarios`.`id`))) 
+  where 
+    ((`a`.`pontuacao` > 0) and (`b`.`pontuacao` < 0));
+
+#
 # Definition for the `viewmoderadorsessoes` view : 
 #
 
@@ -420,6 +628,21 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
     group_concat(`moderador_sessao`.`sessao` separator ',') AS `sessoes` 
   from 
     (`login_moderador` join `moderador_sessao` on((`moderador_sessao`.`moderador` = `login_moderador`.`id`)));
+
+#
+# Definition for the `viewsessoes` view : 
+#
+
+DROP VIEW IF EXISTS `viewsessoes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW viewsessoes AS 
+  select 
+    `sessoes`.`id` AS `id`,
+    `sessoes`.`nome` AS `nome`,
+    `sessoes`.`admin_criador` AS `admin_criador`,
+    `sessoes`.`ativo` AS `ativo` 
+  from 
+    `sessoes`;
 
 #
 # Definition for the `viewtopicos` view : 
@@ -435,12 +658,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
     `topicos`.`mensagem` AS `mensagem`,
     sum(`a`.`pontuacao`) AS `pontos_positivos`,
     sum(`b`.`pontuacao`) AS `pontos_negativos`,
-    `assunto_sessao`.`assunto` AS `id_assunto`,
-    `topicos`.`sessao` AS `id_sessao`,
+    `topicos`.`assunto` AS `id_assunto`,
+    group_concat(distinct `topico_sessao`.`sessao` separator ',') AS `id_sessao`,
     `topicos`.`ativo` AS `ativo` 
   from 
-    (((`topicos` join `assunto_sessao` on((`assunto_sessao`.`sessao` = `topicos`.`sessao`))) left join `topico_pontuacao` `a` on(((`a`.`topico` = `topicos`.`id`) and (`a`.`pontuacao` > 0)))) left join `topico_pontuacao` `b` on(((`b`.`topico` = `topicos`.`id`) and (`b`.`pontuacao` < 0)))) 
+    ((((`topicos` left join `assunto_sessao` on((`assunto_sessao`.`assunto` = `topicos`.`assunto`))) left join `topico_sessao` on((`topico_sessao`.`topico` = `topicos`.`id`))) left join `topico_pontuacao` `a` on(((`a`.`pontuacao` > 0) and (`a`.`topico` = `topicos`.`id`)))) left join `topico_pontuacao` `b` on(((`b`.`pontuacao` < 0) and (`b`.`topico` = `topicos`.`id`)))) 
   group by 
+    `topicos`.`id` 
+  order by 
     `topicos`.`id`;
 
 #
@@ -6467,6 +6692,14 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `nascimento`, `sexo`, `cidade`, `
 COMMIT;
 
 #
+# Data for the `assuntos` table  (LIMIT 0,500)
+#
+
+INSERT INTO `assuntos` (`id`, `nome`, `admin_criador`, `ativo`) VALUES 
+  (1,'Assassin''s Creed',1,1);
+COMMIT;
+
+#
 # Data for the `sessoes` table  (LIMIT 0,500)
 #
 
@@ -6474,6 +6707,38 @@ INSERT INTO `sessoes` (`id`, `nome`, `admin_criador`, `ativo`) VALUES
   (1,'Sessão teste 1',1,1),
   (2,'Sessão teste 2',1,1),
   (3,'Sessão teste 3',1,1);
+COMMIT;
+
+#
+# Data for the `assunto_sessao` table  (LIMIT 0,500)
+#
+
+INSERT INTO `assunto_sessao` (`assunto`, `sessao`) VALUES 
+  (1,1),
+  (1,2),
+  (1,3);
+COMMIT;
+
+#
+# Data for the `topicos` table  (LIMIT 0,500)
+#
+
+INSERT INTO `topicos` (`id`, `usuario`, `titulo`, `mensagem`, `assunto`, `ativo`) VALUES 
+  (2,1,'asdsafa','qrkfjasifoasncoiascoasnc',1,1),
+  (3,1,'1','1',1,1),
+  (4,1,'1','1',1,1),
+  (5,3,'ewqqwe','2321213',1,1),
+  (6,26,'ewqe','34124sadasdsad',1,1),
+  (7,26,'ewqe','34124sadasdsad',1,1),
+  (8,26,'ewqe','34124sadasdsad',1,1),
+  (9,26,'ewqe','34124sadasdsad',1,1),
+  (10,26,'ewqe','34124sadasdsad',1,1),
+  (11,26,'ewqe','34124sadasdsad',1,1),
+  (12,26,'234412','wqe',1,1),
+  (13,26,'234412','wqe',1,1),
+  (14,26,'234412','sadjuisduiasdhiuasnd',1,1),
+  (15,26,'234412','&quot;&quot;&quot;&quot;&quot;&quot;&quot;&qu',1,1),
+  (16,26,'234412','<span style=&quot;font-family: Impact;&quot;>',1,1);
 COMMIT;
 
 #
@@ -6521,6 +6786,16 @@ INSERT INTO `moderador_sessao` (`moderador`, `sessao`) VALUES
   (1,1),
   (1,2),
   (1,3);
+COMMIT;
+
+#
+# Data for the `topico_sessao` table  (LIMIT 0,500)
+#
+
+INSERT INTO `topico_sessao` (`topico`, `sessao`) VALUES 
+  (2,1),
+  (2,2),
+  (2,3);
 COMMIT;
 
 
